@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:EwDavidForms"
+             x:Class="EwDavidForms.BehaviorPage"
+             Title="BehaviorPage">
+
+    <StackLayout VerticalOptions="CenterAndExpand"
+                 Spacing="25">
+
+        <StackLayout.Behaviors>
+            <!--  System.InvalidOperationException: bindable not an instance of AssociatedType -->
+            <behaviors:DynamicViewBetweenChildrenBehavior>
+                <behaviors:DynamicViewBetweenChildrenBehavior.ItemTemplate>
+                    <DataTemplate>
+                        <BoxView HeightRequest="1"
+                                 HorizontalOptions="FillAndExpand"
+                                 BackgroundColor="Gray" />
+                    </DataTemplate>
+                </behaviors:DynamicViewBetweenChildrenBehavior.ItemTemplate>
+            </behaviors:DynamicViewBetweenChildrenBehavior>
+        </StackLayout.Behaviors>
+
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center">
+        </Label>
+
+        <Label 
+            Text="This is the BehaviorPage"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center">
+        </Label>
+
+        <Label 
+            Text="Where DynamicViewBetweenChildrenBehavior is used"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center">
+        </Label>
+
+        <Label 
+            Text="There should be lines between these labels"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center">
+        </Label>
+
+    </StackLayout>
+</ContentPage>
