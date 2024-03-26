@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Maui.Controls.Compatibility;
+//using Microsoft.Maui.Controls.Compatibility;
 
 namespace EwDavidForms
 {
@@ -36,7 +36,7 @@ namespace EwDavidForms
     ///     In the event that you have conflicts between private bindable properties, then the most simplest solution is to ensure that they have different underlying names.
     /// </remarks>
     //public class DynamicViewBetweenChildrenBehavior : BehaviorBase<Microsoft.Maui.Controls.Compatibility.Layout<View>>
-    public class DynamicViewBetweenChildrenBehavior : BehaviorBase<Microsoft.Maui.Controls.Compatibility.Layout<View>>
+    public class DynamicViewBetweenChildrenBehavior : BehaviorBase<GenericLayout<View>>
     {
         private static readonly BindableProperty IsDynamicallyGeneratedProperty = BindableProperty.CreateAttached(
             "IsDynamicallyGenerated",
@@ -89,7 +89,8 @@ namespace EwDavidForms
             set => SetValue(ItemTemplateProperty, value);
         }
 
-        protected override void OnAttachedTo(Layout<View> bindable)
+        //protected override void OnAttachedTo(Layout<View> bindable)
+        protected override void OnAttachedTo(GenericLayout<View> bindable)
         {
             base.OnAttachedTo(bindable);
 
@@ -97,7 +98,8 @@ namespace EwDavidForms
             AddEventHandlers();
         }
 
-        protected override void OnDetachingFrom(Layout<View> bindable)
+        //protected override void OnDetachingFrom(Layout<View> bindable)
+        protected override void OnDetachingFrom(GenericLayout<View> bindable)
         {
             RemoveEventHandlers();
             RefreshDynamicViews(false);
@@ -198,11 +200,12 @@ namespace EwDavidForms
                 return;
             }
 
-            var actualChildren = AssociatedObject.Children.Where(x => x != null && !GetIsDynamicallyGenerated(x)).ToList();
+            //var actualChildren = AssociatedObject.Children.Where(x => x != null && !GetIsDynamicallyGenerated(x)).ToList();
+            var actualChildren = AssociatedObject.Children.Where(x => x != null && !GetIsDynamicallyGenerated((View)x)).ToList();
 
             AssociatedObject.Children.Clear();
 
-            for (int i = 0; i < actualChildren.Count; i++)
+            for (int i = 0; i < actualChildren.Count(); i++)
             {
                 var actualChild = actualChildren[i];
 
@@ -212,13 +215,15 @@ namespace EwDavidForms
                 }
 
                 // Remove any lingering attachments.
-                SetAttachedDynamicView(actualChild, null);
+                //SetAttachedDynamicView(actualChild, null);
+                SetAttachedDynamicView((View)actualChild, null);
 
                 // This behavior must be attached.
                 // and we should not be the first element
                 if (isAttached && i != 0)
                 {
-                    var dynamicView = CreateDynamicViewFor(actualChild);
+                    //var dynamicView = CreateDynamicViewFor(actualChild);
+                    var dynamicView = CreateDynamicViewFor((View)actualChild);
 
                     if (dynamicView != null)
                     {

@@ -8,6 +8,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>();
+			//.UseMauiCompatibility(); // uncomment if using Compat StackLayout on BehaviorPage
 
 		return builder.Build();
 	}
